@@ -15,6 +15,12 @@ class TadpolesController < ApplicationController
     @tadpole = Tadpole.new
   end
 
+  def metamorphosize
+    new_frog = Frog.create(:name => @tadpole.name, :color => @tadpole.color, :pond => @tadpole.pond)
+    @tadpole.destroy
+    redirect_to "/frogs/#{new_frog.id}"
+  end
+
   def edit
     @frog = @tadpole.frog
   end
@@ -46,6 +52,7 @@ class TadpolesController < ApplicationController
       format.html { redirect_to tadpoles_url, notice: 'Tadpole was successfully destroyed.' }
     end
   end
+
 
   private
     def set_tadpole
